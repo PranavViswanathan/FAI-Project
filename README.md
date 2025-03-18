@@ -1,3 +1,9 @@
 # FAI-Project
 
-check
+
+## Installation:
+
+In your terminal run
+```
+pip install -r /path/to/requirements.txt 
+```

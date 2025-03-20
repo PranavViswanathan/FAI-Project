@@ -1,8 +1,20 @@
+#main.py
+
 import gymnasium as gym
 import numpy as np
 from gymnasium.envs.box2d.car_racing import CarRacing
 
 class CustomCarRacing(CarRacing):
+
+    #added this getter, using a placeholder
+    def get_state(self):
+        #placeholder
+        lateral_offset = 0.0
+        heading_angle = 0.0
+        speed = self.car.hull.linearVelocity.length
+        return np.array([lateral_offset, heading_angle, speed])
+
+
     def __init__(self, track_complexity=1.0, track_width=1.0, num_forks=0):
         super().__init__(render_mode="rgb_array")
         self.track_complexity = track_complexity  # Higher = more turns

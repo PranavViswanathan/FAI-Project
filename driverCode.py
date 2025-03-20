@@ -100,3 +100,13 @@ plt.show()
 
 # run this several times and compare with a random learning strategy
 (obtainedRewardsOptimal,env1)=Q1.simulateLearnedStrategy()
+
+
+#discrete actions 
+ACTIONS = [
+    np.array([0.0, 1.0, 0.0]),   # accelerate forward
+    np.array([-0.5, 1.0, 0.0]),  # steer left & accelerate
+    np.array([0.5, 1.0, 0.0]),   # steer right & accelerate
+    np.array([0.0, 0.0, 0.8]),   # brake
+    np.array([0.0, 0.0, 0.0])    # coast
+]

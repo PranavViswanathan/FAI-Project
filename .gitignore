@@ -1,0 +1,27 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+venv/
+
+# Mac OS system files
+.DS_Store
+
+# Environment / settings files
+.env
+
+# VSCode settings (optional)
+.vscode/
+
+# Logs
+*.log
+
+# Jupyter notebooks checkpoints (if applicable)
+.ipynb_checkpoints/
+
+# Test results
+htmlcov/
+coverage.xml
+

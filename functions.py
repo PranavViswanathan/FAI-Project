@@ -14,7 +14,7 @@ class Q_Learning:
         self.actionNumber = len(actions)
         self.sumRewardsEpisode = []
 
-        # Initialize Q-table for 3D state space (offset, angle, speed) and action dimension
+        # Initialize Q-table for (offset, angle, speed) and actions
         self.Qmatrix = np.random.uniform(low=0, high=1, size=(
             numberOfBins[0], numberOfBins[1], numberOfBins[2], self.actionNumber))
 
@@ -34,7 +34,7 @@ class Q_Learning:
             return np.random.choice(self.actionNumber)
 
         if episodeIndex > 7000:
-            self.epsilon *= 0.999
+            self.epsilon *= 0.999  # Decay epsilon
 
         if np.random.random() < self.epsilon:
             return np.random.choice(self.actionNumber)
@@ -45,13 +45,13 @@ class Q_Learning:
 
     def simulateEpisodes(self):
         for episodeIndex in range(self.numberEpisodes):
-            rewardsEpisode = []
-
-            self.env.reset()
+            obs, _ = self.env.reset()
             stateS = self.env.get_state()
 
-            print(f"Simulating episode {episodeIndex}")
+            print(f"\n[EPISODE {episodeIndex}] Starting simulation...")
+            print(f"Starting episode {episodeIndex}")
             done = False
+            rewardsEpisode = []
 
             while not done:
                 stateS_idx = self.returnIndexState(stateS)
@@ -59,11 +59,14 @@ class Q_Learning:
                 action = self.actions[action_idx]
 
                 obs, reward, terminated, truncated, info = self.env.step(action)
+                print(f"Step result — terminated: {terminated}, truncated: {truncated}")
                 done = terminated or truncated
                 rewardsEpisode.append(reward)
 
                 stateSprime = self.env.get_state()
                 stateSprime_idx = self.returnIndexState(stateSprime)
+
+                print(f"Step debug — Action: {action}, New State: {stateSprime}, Reward: {reward}")
 
                 QmaxPrime = np.max(self.Qmatrix[stateSprime_idx])
 
@@ -76,5 +79,8 @@ class Q_Learning:
                 stateS = stateSprime
 
             episode_reward_sum = np.sum(rewardsEpisode)
-            print(f"Episode {episodeIndex} sum of rewards: {episode_reward_sum}")
             self.sumRewardsEpisode.append(episode_reward_sum)
+
+            avg_q_value = np.mean(self.Qmatrix)
+            max_q_value = np.max(self.Qmatrix)
+            print(f"[EPISODE {episodeIndex}] Reward: {episode_reward_sum:.2f} | Avg Q: {avg_q_value:.4f} | Max Q: {max_q_value:.4f}")

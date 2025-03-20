@@ -1,3 +1,5 @@
+#driverCode.py
+
 import numpy as np
 import matplotlib.pyplot as plt
 from functions import Q_Learning
@@ -29,8 +31,9 @@ numberEpisodes = 5000  # You can adjust for longer training
 # Create Q-learning object
 Q1 = Q_Learning(env, alpha, gamma, epsilon, numberEpisodes, numberOfBins, lowerBounds, upperBounds, ACTIONS)
 
-# Run the Q-learning training process
 Q1.simulateEpisodes()
+
+env.close()  # <- add this line
 
 # Plot reward convergence over episodes
 plt.figure(figsize=(12, 5))
@@ -42,6 +45,5 @@ plt.title('Q-Learning Reward Convergence')
 plt.savefig('convergence.png')
 plt.show()
 
-# Save the learned Q-matrix if desired
 np.save('qmatrix.npy', Q1.Qmatrix)
 print("Training complete. Q-matrix saved.")

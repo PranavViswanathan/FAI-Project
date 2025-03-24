@@ -24,6 +24,9 @@ class QLearning:
         # Initialize the Q-table
         self.Q = defaultdict(lambda: np.zeros(self.action_space_size))
 
+
+    #TODO
+    #needs explanation what it does, might be computer vision 
     def discretize_state(self, observation):
         """
         Discretize the observation (state) into a simpler form.
@@ -32,6 +35,7 @@ class QLearning:
         observation = observation.mean(axis=2)  # Convert to grayscale by averaging RGB channels
         observation = observation[::10, ::10]   # Downsample to 10x10
         return tuple(observation.flatten())     # Flatten and convert to a tuple for hashing
+
 
     def select_action(self, state):
         """
@@ -42,6 +46,9 @@ class QLearning:
         else:
             return np.argmax(self.Q[state])  # Exploit: best action from Q-table
 
+
+    #TODO
+    #add what is the total reward/result
     def train(self, num_episodes=10):
         """
         Train the Q-Learning agent.
@@ -77,6 +84,7 @@ class QLearning:
         # Save the Q-table
         self.save_q_table("q_table.pkl")
 
+    
     def save_q_table(self, filename):
         """
         Save the Q-table to a file.

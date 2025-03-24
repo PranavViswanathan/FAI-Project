@@ -2,7 +2,7 @@ import gymnasium as gym
 from q_learning import QLearning
 
 # Create the Car Racing environment
-env = gym.make("CarRacing-v3", render_mode=None)  
+env = gym.make("CarRacing-v3", render_mode=None)  #change render_mode to human if we want to visualize
 
 # Initialize the Q-Learning agent
 q_learning_agent = QLearning(env)

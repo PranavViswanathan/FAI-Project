@@ -1,4 +1,4 @@
-import gymnasium as gym
+import gymnasium as gym #type:ignore
 from q_learning import QLearning
 
 # Create the Car Racing environment

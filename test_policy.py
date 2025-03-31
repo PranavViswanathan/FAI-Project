@@ -1,6 +1,6 @@
-import gymnasium as gym
+import gymnasium as gym # type: ignore
 from q_learning import QLearning
-import numpy as np  
+import numpy as np   # type: ignore
 
 # Create the Car Racing environment with rendering enabled during testing
 env = gym.make("CarRacing-v3", render_mode="human")  # Enable rendering
@@ -17,6 +17,7 @@ state = q_learning_agent.discretize_state(observation)
 episode_over = False
 total_reward = 0
 
+#Run the episodes using the learned policy ( no exploration, always best action)
 while not episode_over:
     action_index = np.argmax(q_learning_agent.Q[state])  # Always choose the best action
     action = q_learning_agent.discrete_actions[action_index]  # Map index to discrete action
@@ -26,5 +27,6 @@ while not episode_over:
     total_reward += reward
     env.render()
 
+#Print all rewards
 print(f"Total Reward: {total_reward}")
 env.close()

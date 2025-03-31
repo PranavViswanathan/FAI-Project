@@ -1,4 +1,4 @@
-import numpy as np # type: ignore
+import numpy as np
 import random
 from collections import defaultdict
 
@@ -25,17 +25,18 @@ class QLearning:
         self.Q = defaultdict(lambda: np.zeros(self.action_space_size))
 
 
-    #This is taking an observation and turning into a simplifed state that our program can easily use. Often used for q learning.
+    #TODO
+    #needs explanation what it does, might be computer vision 
     def discretize_state(self, observation):
         """
         Discretize the observation (state) into a simpler form.
+        For example, reduce the image to a smaller resolution and convert to grayscale.
         """
         observation = observation.mean(axis=2)  # Convert to grayscale by averaging RGB channels
         observation = observation[::10, ::10]   # Downsample to 10x10
         return tuple(observation.flatten())     # Flatten and convert to a tuple for hashing
 
 
-    #policy
     def select_action(self, state):
         """
         Select an action using the epsilon-greedy policy.
@@ -46,20 +47,11 @@ class QLearning:
             return np.argmax(self.Q[state])  # Exploit: best action from Q-table
 
 
-    #traning
+    #TODO
+    #add what is the total reward/result
     def train(self, num_episodes=10):
         """
-        In each episode it will:
-            reset the environment
-            distretise the state
-            choose actions
-            update Q table
-            accumulate rewards
-            decay epsion
-            prints
-                episode number
-                total reward
-                current epsilon (exploration vs explotation)
+        Train the Q-Learning agent.
         """
         for episode in range(num_episodes):
             observation, info = self.env.reset()
@@ -92,8 +84,7 @@ class QLearning:
         # Save the Q-table
         self.save_q_table("q_table.pkl")
 
-
-    #save
+    
     def save_q_table(self, filename):
         """
         Save the Q-table to a file.
@@ -102,7 +93,6 @@ class QLearning:
         with open(filename, "wb") as f:
             pickle.dump(dict(self.Q), f)
 
-    #load
     def load_q_table(self, filename):
         """
         Load the Q-table from a file.

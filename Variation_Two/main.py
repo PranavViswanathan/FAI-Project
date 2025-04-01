@@ -1,11 +1,11 @@
 import gymnasium as gym
-from Variation_One.q_learning import QLearning
+from QLearning_Two import QLearning
 import matplotlib.pyplot as plt
 import csv
 import os
 
 # === Configuration ===
-num_episodes = 5000
+num_episodes = 2000
 save_interval = 500
 window_size = 10
 csv_filename = "metrics.csv"

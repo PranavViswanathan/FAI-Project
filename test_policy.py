@@ -9,7 +9,7 @@ env = gym.make("CarRacing-v3", render_mode="human")  # Enable rendering
 q_learning_agent = QLearning(env)  
 
 # Load the Q-table
-q_learning_agent.load_q_table("q_table_ep1500.pkl")
+q_learning_agent.load_q_table("q_table_ep2000.pkl")
 
 # Test the learned policy
 observation, info = env.reset()

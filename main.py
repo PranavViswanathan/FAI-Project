@@ -1,4 +1,6 @@
-#main.py
+'''
+Extends Gym’s CarRacing environment to allow for customized track parameters and an optional fork feature (branching paths), with added debug/log messages and a method to retrieve the car’s current state.
+'''
 import gymnasium as gym
 import numpy as np
 from gymnasium.envs.box2d.car_racing import CarRacing

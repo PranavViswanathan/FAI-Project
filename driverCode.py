@@ -1,3 +1,11 @@
+'''
+This code is no longer considered to be implemented in our codebase since we moved away from ROS and gazeboo
+Nonetheless
+'''
+
+
+
+
 #driverCode.py
 
 import numpy as np
@@ -47,3 +55,4 @@ plt.show()
 
 np.save('qmatrix.npy', Q1.Qmatrix)
 print("Training complete. Q-matrix saved.")
+

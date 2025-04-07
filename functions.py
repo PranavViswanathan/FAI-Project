@@ -1,3 +1,8 @@
+"""
+Bucketing was a consideration but since the code faced some issues I implemented some sanity checks and removed bucketing impl.
+"""
+
+
 import numpy as np
 
 class Q_Learning:

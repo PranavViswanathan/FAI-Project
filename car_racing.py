@@ -1,3 +1,25 @@
+
+
+
+import gymnasium as gym
+import numpy as np
+import matplotlib.pyplot as plt
+from main import CustomCarRacing
+
+
+env = gym.make("CarRacing", render_mode="human")
+observation, info = env.reset()
+
+episode_over = False
+while not episode_over:
+    action = env.action_space.sample()  # agent policy that uses the observation and info
+    observation, reward, terminated, truncated, info = env.step(action)
+
+    episode_over = terminated or truncated
+
+env.close()
+
+
 #car_racing.py
 
 # import gymnasium as gym
@@ -40,12 +62,6 @@
 # env.close()
 # print("Environment closed successfully!")
 
-
-import gymnasium as gym
-import numpy as np
-import matplotlib.pyplot as plt
-from main import CustomCarRacing
-
 # print("[INFO] Creating CustomCarRacing environment...")
 # env = CustomCarRacing(track_complexity=1.5, track_width=0.8, num_forks=2)
 
@@ -55,15 +71,3 @@ from main import CustomCarRacing
 
 # env.close()
 # print("[INFO] Closed environment.")
-
-env = gym.make("CarRacing", render_mode="human")
-observation, info = env.reset()
-
-episode_over = False
-while not episode_over:
-    action = env.action_space.sample()  # agent policy that uses the observation and info
-    observation, reward, terminated, truncated, info = env.step(action)
-
-    episode_over = terminated or truncated
-
-env.close()

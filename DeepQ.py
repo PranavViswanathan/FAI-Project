@@ -107,11 +107,6 @@ class DQN:
 
         self.buffer = ExperienceReplay(stacked_input, (1, ), ExperienceReplay_memory) #initialized Experience Replay
         
-        #put on GPU
-        self.device = torch.device('cuda' if torch.cuda.is_available else 'cpu')
-        self.network.to(self.device)
-        self.target_network.to(self.device)
-        
         self.total_steps = 0
         self.epsilon_decay = (epsilon - minimum_epsilon) / 1e6  #Epsilon Decay
     
@@ -122,13 +117,13 @@ class DQN:
         if training and ((np.random.rand() < self.epsilon) or (self.total_steps < self.warmup_steps)):
             action = np.random.randint(0, self.num_actions)   
         else:
-            input_img = torch.from_numpy(input_img).float().unsqueeze(0).to(self.device)
+            input_img = torch.from_numpy(input_img).float().unsqueeze(0)
             q = self.network(input_img)
             action = torch.argmax(q).item()
         return action
     
     def learn(self):
-        current_state, action, reward, next_state, terminated = map(lambda input_img: input_img.to(self.device), self.buffer.sample(self.batch_size)) # random batch of past transitions from replay buffer and move them to GPU.
+        current_state, action, reward, next_state, terminated = self.buffer.sample(self.batch_size) # random batch of past transitions from replay buffer and move them to GPU.
         
         # Q(s', a)
         next_q = self.target_network(next_state).detach()
@@ -149,7 +144,7 @@ class DQN:
     def process(self, transition):
         result = {}
         self.total_steps += 1
-        self.buffer.update(*transition)
+        self.buffer.push(*transition)
 
         if self.total_steps > self.warmup_steps:
             result = self.learn()

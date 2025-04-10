@@ -1,3 +1,15 @@
+"""
+The actual Q-Learning algo we are implementing
+Includes:
+State discretization for observation that is imaged based 
+We are encouraging the agent to keep on the track and avoid green
+Eplison greedy exploration with a steep decay 
+Adaptive learning rate based on how many states visited
+We save and load the Q table 
+"""
+
+
+
 import numpy as np  # type: ignore
 import random
 import pickle

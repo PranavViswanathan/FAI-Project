@@ -1,3 +1,18 @@
+"""
+This is the seventh variation (gen7) of the Q learning table
+The variations can be examined on Pranav's feature branch
+Each variations added incremental design changes
+Among of which in generation 7 we implemented bucketing
+Which greatly converted our results to converge to consistent positive values
+
+The code below is the main entry point to our code
+It's responsible for running the environment with our specifc parameters
+It implements the q_learning algo we implemented
+Runs with moderate success
+Ultimately it falls short of creating a Q table that could be considered succesful
+"""
+
+
 import gymnasium as gym
 from qlearninf import QLearning
 import matplotlib.pyplot as plt

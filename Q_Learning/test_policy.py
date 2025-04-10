@@ -1,3 +1,10 @@
+"""
+Testing the model by checking how well our model is performing 
+This was used for fixing the exploration instead of explotation 
+This was used as a sanity check
+"""
+
+
 import gymnasium as gym # type: ignore
 from Variation_One.q_learning import QLearning
 import numpy as np   # type: ignore

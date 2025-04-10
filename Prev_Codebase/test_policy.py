@@ -1,5 +1,5 @@
 import gymnasium as gym # type: ignore
-from q_learning import QLearning
+from Prev_Codebase.q_learning import QLearning
 import numpy as np   # type: ignore
 
 # Create the Car Racing environment with rendering enabled during testing

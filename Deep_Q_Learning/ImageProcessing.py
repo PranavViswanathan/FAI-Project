@@ -1,3 +1,20 @@
+"""
+Observation Wrapper for our Reinforcement Learning Env
+
+This file wraps around the Gymnasium env and:
+Converts RGB frames to 84x84 greyscale for processing 
+It also stacks multiple consecutive frames (usually 4) to capture temporal dynamics.
+Repeats the same action for a few frames to reduce computational expenses and to smoothen
+
+Furthermore, some of the key features are:
+Frame Stacking
+Greyscale conversion 
+Frame skipping for faster performance 
+
+"""
+
+
+
 import cv2
 import numpy as np
 import gymnasium as gym
@@ -60,3 +77,19 @@ class Observation_processing(gym.Wrapper):
         stacked_state = np.stack(self.frames, axis=0) 
 
         return stacked_state, total_reward, terminated, truncated, info
+
+
+        # ============================================================
+# Usage Example:
+# env = gym.make("CarRacing-v3", render_mode="rgb_array")
+# wrapped_env = Observation_processing(env)
+# state, info = wrapped_env.reset()
+# next_state, reward, done, truncated, info = wrapped_env.step(action)
+#
+# This wrapper ensures the input to your neural network is:
+# - [stack_frames, 84, 84] shaped (default: [4, 84, 84])
+# - temporally aware (via stacked grayscale frames)
+# - computationally efficient (via frame skipping)
+#
+# Useful for: Deep Q-Networks, Policy Gradient methods, or any CNN-based RL pipeline.
+# ============================================================

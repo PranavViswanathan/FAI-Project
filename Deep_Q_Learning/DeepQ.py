@@ -1,3 +1,17 @@
+"""
+This is the DQN implementation with Convolutional Q-Network 
+
+In this we have:
+QNetwork: a Convolusional Network to estimate Q values from image input
+DQN: the Deep Q-Learning agent class that handles action slection, training, target network updates and epsilon decay
+
+The important bits are:
+Convolutional layers that we use for visual input processing
+Epsilon greedy exploration just like in Q-Learning
+Experience replay //TODO 
+RMSProp optimizer //TODO
+"""
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -6,6 +20,7 @@ import numpy as np
 import random
 from collections import namedtuple, deque
 
+#Neural network we use to get the Q values from visual input(stacked frames)
 class QNetwork(nn.Module):
     def __init__(self, stacked_input, num_actions, activation=F.relu):
         super(QNetwork, self).__init__()
@@ -15,23 +30,28 @@ class QNetwork(nn.Module):
         #convolution 2nd layer
         self.layer2 = nn.Conv2d(16, 32, kernel_size=4, stride=2)  # [batch_size, 32, 9, 9] input from 1st layer = 16, filters =32
         
+        #Ouput size after 2nd layer
         self.flatten_img = 32 * 9 * 9  # layer 2 gives out 32 filtered, 9x9 sized batch_size times -> [batch_size, 2592]
         
+        #First fully connected layer 
         self.fully_connected_layer1 = nn.Linear(self.flatten_img, 256)   #flattened img passed to 256 neurons
         self.fully_connect_layer2 = nn.Linear(256, num_actions)  #Q values  [batch_size, 3]
         
         self.activation = activation
 
     def forward(self, input_img):
+        #apply conv layers with ReLU
         input_img = F.relu(self.layer1(input_img))
         input_img = F.relu(self.layer2(input_img))
         input_img = input_img.view((-1, self.flatten_img))
         input_img = self.activation(self.fully_connected_layer1(input_img))
         input_img = self.fully_connect_layer2(input_img)
         return input_img
-    
+
+#Tuple for structrued replays  //TODO
 TrainingSample = namedtuple('TraniningSample', ('state', 'action', 'reward', 'next_state', 'terminated'))   #to access the tuple using names, 'Transition' in Pytorch
 
+#Replay buffer for experiece replay //TODO
 class ExperienceReplay:
     def __init__(self, stacked_input, num_actions, capacity=int(1e5)):
         self.capacity = capacity
@@ -71,7 +91,8 @@ class ExperienceReplay:
     #how much samples are stored
     def __len__(self):
         return self.samples_stored_till_now
-    
+
+#The actual Deep Q-Learning Network agent     
 class DQN:
     def __init__(
         self,
@@ -121,13 +142,13 @@ class DQN:
             q = self.network(input_img)
             action = torch.argmax(q).item()
         return action
-    
+    #Perform a training step 
     def learn(self):
         current_state, action, reward, next_state, terminated = self.buffer.sample(self.batch_size) # random batch of past transitions from replay buffer and move them to GPU.
         
         # Q(s', a)
         next_q = self.target_network(next_state).detach()
-        
+        #Get target Q-values from network
         target_q = reward + (1. - terminated) * self.discount_factor * next_q.max(dim=1, keepdim=True).values   # target = immediate reward + gamma * Q(s', a)
         #Loss
         loss = F.mse_loss(self.network(current_state).gather(1, action.long()), target_q)
@@ -140,10 +161,12 @@ class DQN:
             'value_loss': loss.item()
         }
         return result
-    
+    #Proccess a single transition and update networks 
     def process(self, transition):
         result = {}
         self.total_steps += 1
+
+        #sotre transition 
         self.buffer.push(*transition)
 
         if self.total_steps > self.warmup_steps:
@@ -157,3 +180,5 @@ class DQN:
         self.epsilon -= self.epsilon_decay
 
         return result
+
+        #this needs to be flushed out //TODO

@@ -16,16 +16,17 @@ This GitHub repository contains the implementation of the Q-Learning (Reinforcem
 
 https://aleksandarhaber.com/q-learning-in-python-with-tests-in-cart-pole-openai-gym-environment-reinforcement-learning-tutorial/
 
-The posted files are:
-
-"driverCode.py" - you should start from here. This is a driver code file that explains how to use the Q-learning algorithm. This code file imports a class called "Q_Learning" that is developed in "functions.py"
-
-"functions.py" - this file contains the implementation of the Q-Learning algorithm. The class "Q_Learning" defined in this file implements the algorithm.
-
-
-State of things: even though our code isn't performing perfectly, our roadmap includes tuning of the hyperparameters so our model will become better with time
 
 TODO:
-create functions to generate graphs to showcase the results and show progress in a testfile 
+Finalise Q-Learning and DQL models. 
+We have our slides at: (Still needs polish and add graphs/GIFS)
+https://prezi.com/p/edit/fuouykm4zmyg/
+
+And we have 1 minute long kahoot with the following 3 questions: 
+https://create.kahoot.it/details/fai-kahoot/b2db6233-2436-4ab2-99e5-058c53e6b25e
+What is the purpose of Epsilon in epsilon greedy strategy?
+Why is DQL better than Q-Learning for a car track? 
+Who's Prof Raj's fav superhero?
+
 
 

@@ -3,13 +3,11 @@ DQN training script for our env
 
 This main script inits and trains our DQ network agent, using:
 Preprocessed CarRacing env with (grayscale, stacked frames, frame skipping)
-CNN based Q-Network for learning from visual input 
-Exp replay //TODO
-EPsilon-greedy exploration with steep decay
+CNN based Q-Network for learning from randomly sampled data from
+Exp replay with Epsilon-greedy exploration with steep decay
 
 Tracks rewards per episode and can be visaulized
 """
-
 
 
 import gymnasium as gym #type:ignore

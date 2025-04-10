@@ -8,8 +8,8 @@ DQN: the Deep Q-Learning agent class that handles action slection, training, tar
 The important bits are:
 Convolutional layers that we use for visual input processing
 Epsilon greedy exploration just like in Q-Learning
-Experience replay //TODO 
-RMSProp optimizer //TODO
+Experience replay: In this case 5 arrays which store the transitions and get overwritten with the new ones, so overall behaving like a Python queue. // 
+RMSProp optimizer: Uses running avg of squared gradients to scale updates and adjusts the laerning rate of parameters instead of constant parameters. //
 """
 
 import torch
@@ -48,10 +48,9 @@ class QNetwork(nn.Module):
         input_img = self.fully_connect_layer2(input_img)
         return input_img
 
-#Tuple for structrued replays  //TODO
-TrainingSample = namedtuple('TraniningSample', ('state', 'action', 'reward', 'next_state', 'terminated'))   #to access the tuple using names, 'Transition' in Pytorch
+TrainingSample = namedtuple('TraniningSample', ('state', 'action', 'reward', 'next_state', 'terminated'))   #datastructure to access the tuple using labels, 'Transition' in Pytorch
 
-#Replay buffer for experiece replay //TODO
+#Experience Replay => stores the transitions (Training Sample); randomly sample a batch //
 class ExperienceReplay:
     def __init__(self, stacked_input, num_actions, capacity=int(1e5)):
         self.capacity = capacity
@@ -92,18 +91,18 @@ class ExperienceReplay:
     def __len__(self):
         return self.samples_stored_till_now
 
-#The actual Deep Q-Learning Network agent     
+#Deep Q-learning Network   
 class DQN:
     def __init__(
         self,
         stacked_input,
         num_actions,
-        alpha=0.00025,
-        epsilon=1.0,
-        minimum_epsilon=0.1,
-        discount_factor=0.99,
-        batch_size=32,
-        warmup_steps=5000,
+        alpha=0.00025,   #learning rate
+        epsilon=1.0,     # Epsilon for Epsilon Greedy Algo
+        minimum_epsilon=0.1,  # lower bound of Epsilon
+        discount_factor=0.99, # discount factor
+        batch_size=32,   #batch size input to neural network
+        warmup_steps=5000,   #steps where the agent collects experience but doesn’t learn, improves randomness in replay buffer data
         ExperienceReplay_memory=int(1e5),
         target_update_interval=10000,
     ):
@@ -123,7 +122,7 @@ class DQN:
         #update the weights in Target Network
         self.target_network.load_state_dict(self.network.state_dict()) 
 
-        #optimizer; reference = Deepmind DQN
+        #optimizer; reference => Deepmind DQN Paper
         self.optimizer = torch.optim.RMSprop(self.network.parameters(), alpha) 
 
         self.buffer = ExperienceReplay(stacked_input, (1, ), ExperienceReplay_memory) #initialized Experience Replay
@@ -180,5 +179,3 @@ class DQN:
         self.epsilon -= self.epsilon_decay
 
         return result
-
-        #this needs to be flushed out //TODO

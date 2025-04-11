@@ -23,7 +23,7 @@ import random
 from ImageProcessing import Observation_processing
 from DeepQ import DQN
 
-env = gym.make("CarRacing-v3", render_mode=None, continuous=False)
+env = gym.make("CarRacing-v3", render_mode='human', continuous=False)
 env = Observation_processing(env)
 
 agent = DQN(stacked_input=(4, 84, 84), num_actions=env.action_space.n)
@@ -47,9 +47,9 @@ def greedy_path(agent):
 # for saving the video of best epsiode
 def animate(imgs, video_name=None, _return=True):
     if video_name is None:
-        video_name = ''.join(random.choice(string.ascii_letters) for _ in range(18)) + '.webm'   #random name to saved video
+        video_name = ''.join(random.choice(string.ascii_letters) for _ in range(18)) + '.mp4v'   #random name to saved video
     height, width, _ = imgs[0].shape
-    fourcc = cv2.VideoWriter_fourcc(*'VP90')    # video codec VP90 for .webm video
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')    
     video = cv2.VideoWriter(video_name, fourcc, 10, (width, height))
 
     for img in imgs:
@@ -90,8 +90,10 @@ for episode in range(num_episodes):
 
             from IPython.display import clear_output
             clear_output()
+            print("Steps:", history['Step'])
+            print("Returns:", history['AvgReturn'])
             plt.figure(figsize=(8, 5))
-            plt.plot(history['Step'], history['AvgReturn'], 'r-')
+            plt.plot(history['Step'], history['AvgReturn'], 'ro-')
             plt.xlabel('Step', fontsize=16)
             plt.ylabel('AvgReturn', fontsize=16)
             plt.xticks(fontsize=14)
@@ -103,7 +105,7 @@ for episode in range(num_episodes):
             torch.save(agent.network.state_dict(), 'dqn.pt')
 
             #video
-            animate(frames, "trial1.webm")
+            animate(frames, "trial.mp4")
 
         #additional condition to end training
         if agent.total_steps > max_steps:

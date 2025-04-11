@@ -1,6 +1,3 @@
-<<<<<<< Updated upstream:main.py
-import gymnasium as gym #type:ignore
-=======
 """
 DQN training script for our env
 
@@ -13,8 +10,7 @@ Tracks rewards per episode and can be visaulized
 """
 
 
-import gymnasium as gym  # type: ignore
->>>>>>> Stashed changes:Deep_Q_Learning/main.py
+import gymnasium as gym  
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
@@ -95,7 +91,7 @@ for episode in range(num_episodes):
             from IPython.display import clear_output
             clear_output()
             plt.figure(figsize=(8, 5))
-            plt.plot(history['Step'], history['AvgReturn'], 'reward-')
+            plt.plot(history['Step'], history['AvgReturn'], 'r-')
             plt.xlabel('Step', fontsize=16)
             plt.ylabel('AvgReturn', fontsize=16)
             plt.xticks(fontsize=14)
@@ -114,7 +110,7 @@ for episode in range(num_episodes):
             break
 
     episode_rewards.append(total_reward)
-    print(f"Episode {episode+1} | Reward: {total_reward:.2f} | Epsilon: {agent.epsilon:.3f}")
+    print(f"Episode {episode+1} | Reward: {total_reward:.2f} | Epsilon: {agent.epsilon:.3f} | Steps so far: {agent.total_steps}")
 
 
 #starting 4 grayscale images

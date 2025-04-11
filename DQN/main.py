@@ -31,7 +31,7 @@ unique_states_seen = set()
 unique_states_per_episode = []
 
 # === Training ===
-num_episodes = 10
+num_episodes = 5_000
 
 for episode in range(num_episodes):
     (current_state, _), done = env.reset(), False
@@ -54,6 +54,18 @@ for episode in range(num_episodes):
     unique_states_per_episode.append(len(unique_states_seen))
 
     print(f"Episode {episode+1} | Reward: {total_reward:.2f} | Epsilon: {agent.epsilon:.4f} | Unique States: {len(unique_states_seen)}")
+
+    # Save progress every 500 episodes
+    if (episode + 1) % 500 == 0:
+        torch.save(agent.network.state_dict(), f"DQN/checkpoints/checkpoint_ep{episode+1}.pth")
+        with open("DQN/plots/training_metrics.pkl", "wb") as f:
+            pickle.dump({
+                "rewards": episode_rewards,
+                "epsilons": epsilons,
+                "unique_states_count": unique_states_per_episode
+            }, f)
+        print(f"[Checkpoint] Saved at Episode {episode+1}")
+    
 
 # === Save model ===
 torch.save(agent.network.state_dict(), "DQN/plots/dqn_carracing.pth")

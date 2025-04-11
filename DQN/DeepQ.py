@@ -108,6 +108,7 @@ class DQN:
     ):
         self.num_actions = num_actions
         self.epsilon = epsilon
+        self.minimum_epsilon = minimum_epsilon  # storing decay
         self.discount_factor = discount_factor
         self.batch_size = batch_size
         self.warmup_steps = warmup_steps
@@ -128,7 +129,9 @@ class DQN:
         self.buffer = ExperienceReplay(stacked_input, (1, ), ExperienceReplay_memory) #initialized Experience Replay
         
         self.total_steps = 0
-        self.epsilon_decay = (epsilon - minimum_epsilon) / 3e5  #Epsilon Decay
+        #self.epsilon_decay = (epsilon - minimum_epsilon) / 3e5  #Epsilon Decay
+        self.decay_rate = 0.9999993  # Tune this to control the curve
+
     
     #Epsilon Greedy
     @torch.no_grad()
@@ -176,6 +179,7 @@ class DQN:
             self.target_network.load_state_dict(self.network.state_dict())
         
         #decay epsilon
-        self.epsilon -= self.epsilon_decay
+        #self.epsilon -= self.epsilon_decay #linear decay
+        self.epsilon = max(self.minimum_epsilon, self.epsilon * self.decay_rate)
 
         return result

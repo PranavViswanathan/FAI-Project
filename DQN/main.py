@@ -31,7 +31,7 @@ unique_states_seen = set()
 unique_states_per_episode = []
 
 # === Training ===
-num_episodes = 5_000
+num_episodes = 1_500
 
 for episode in range(num_episodes):
     (current_state, _), done = env.reset(), False

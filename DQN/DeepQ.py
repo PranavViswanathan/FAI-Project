@@ -129,8 +129,8 @@ class DQN:
         self.buffer = ExperienceReplay(stacked_input, (1, ), ExperienceReplay_memory) #initialized Experience Replay
         
         self.total_steps = 0
-        #self.epsilon_decay = (epsilon - minimum_epsilon) / 3e5  #Epsilon Decay
-        self.decay_rate = 0.9999993  # Tune this to control the curve
+        self.epsilon_decay = (epsilon - minimum_epsilon) / 3e5  #Epsilon Decay
+        #self.decay_rate = 0.9990  # Tune this to control the curve
 
     
     #Epsilon Greedy
@@ -180,6 +180,6 @@ class DQN:
         
         #decay epsilon
         #self.epsilon -= self.epsilon_decay #linear decay
-        self.epsilon = max(self.minimum_epsilon, self.epsilon * self.decay_rate)
+        self.epsilon = max(self.minimum_epsilon, self.epsilon - self.epsilon_decay)
 
         return result

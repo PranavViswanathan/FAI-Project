@@ -27,6 +27,6 @@ coverage.xml
 
 # PNG and pth and pkl files
 *.PNG
-*.pth
 *.pkl
 
+/DQN/plots

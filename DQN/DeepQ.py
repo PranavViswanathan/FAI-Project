@@ -97,14 +97,14 @@ class DQN:
         self,
         stacked_input,
         num_actions,
-        alpha=0.00025,   #learning rate
+        alpha=0.0001,   #learning rate
         epsilon=1.0,     # Epsilon for Epsilon Greedy Algo
         minimum_epsilon=0.1,  # lower bound of Epsilon
         discount_factor=0.99, # discount factor
         batch_size=32,   #batch size input to neural network
-        warmup_steps=5000,   #steps where the agent collects experience but doesn’t learn, improves randomness in replay buffer data
+        warmup_steps=10000,   #steps where the agent collects experience but doesn’t learn, improves randomness in replay buffer data
         ExperienceReplay_memory=int(1e5),
-        target_update_interval=10000,
+        target_update_interval=5000,
     ):
         self.num_actions = num_actions
         self.epsilon = epsilon
@@ -128,7 +128,7 @@ class DQN:
         self.buffer = ExperienceReplay(stacked_input, (1, ), ExperienceReplay_memory) #initialized Experience Replay
         
         self.total_steps = 0
-        self.epsilon_decay = (epsilon - minimum_epsilon) / 1e6  #Epsilon Decay
+        self.epsilon_decay = (epsilon - minimum_epsilon) / 3e5  #Epsilon Decay
     
     #Epsilon Greedy
     @torch.no_grad()

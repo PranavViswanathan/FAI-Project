@@ -25,3 +25,8 @@ venv/
 htmlcov/
 coverage.xml
 
+# PNG and pth and pkl files
+*.PNG
+*.pth
+*.pkl
+

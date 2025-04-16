@@ -1,13 +1,7 @@
 # FAI-Project
 
 
-## Installation:
-
-In your terminal run
-```
 pip install -r /path/to/requirements.txt 
-```
-
 
 THIS IS THE README FILE FROM Q LEARNING GITREPO:
 
@@ -16,10 +10,8 @@ This GitHub repository contains the implementation of the Q-Learning (Reinforcem
 
 https://aleksandarhaber.com/q-learning-in-python-with-tests-in-cart-pole-openai-gym-environment-reinforcement-learning-tutorial/
 
-
-TODO:
-Finalise Q-Learning and DQL models. 
-We have our slides at: (Still needs polish and add graphs/GIFS)
+Finalised Q-Learning and DQL models. 
+We have our slides at:
 https://prezi.com/p/edit/fuouykm4zmyg/
 
 And we have 1 minute long kahoot with the following 3 questions: 

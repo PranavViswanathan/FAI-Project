@@ -97,17 +97,18 @@ class DQN:
         self,
         stacked_input,
         num_actions,
-        alpha=0.00025,   #learning rate
+        alpha=0.0001,   #learning rate
         epsilon=1.0,     # Epsilon for Epsilon Greedy Algo
         minimum_epsilon=0.1,  # lower bound of Epsilon
         discount_factor=0.99, # discount factor
         batch_size=32,   #batch size input to neural network
-        warmup_steps=5000,   #steps where the agent collects experience but doesn’t learn, improves randomness in replay buffer data
+        warmup_steps=10000,   #steps where the agent collects experience but doesn’t learn, improves randomness in replay buffer data
         ExperienceReplay_memory=int(1e5),
-        target_update_interval=10000,
+        target_update_interval=5000,
     ):
         self.num_actions = num_actions
         self.epsilon = epsilon
+        self.minimum_epsilon = minimum_epsilon  # storing decay
         self.discount_factor = discount_factor
         self.batch_size = batch_size
         self.warmup_steps = warmup_steps
@@ -128,7 +129,9 @@ class DQN:
         self.buffer = ExperienceReplay(stacked_input, (1, ), ExperienceReplay_memory) #initialized Experience Replay
         
         self.total_steps = 0
-        self.epsilon_decay = (epsilon - minimum_epsilon) / 1e6  #Epsilon Decay
+        self.epsilon_decay = (epsilon - minimum_epsilon) / 3e5  #Epsilon Decay
+        #self.decay_rate = 0.9990  # Tune this to control the curve
+
     
     #Epsilon Greedy
     @torch.no_grad()
@@ -176,6 +179,7 @@ class DQN:
             self.target_network.load_state_dict(self.network.state_dict())
         
         #decay epsilon
-        self.epsilon -= self.epsilon_decay
+        #self.epsilon -= self.epsilon_decay #linear decay
+        self.epsilon = max(self.minimum_epsilon, self.epsilon - self.epsilon_decay)
 
         return result

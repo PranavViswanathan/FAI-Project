@@ -8,7 +8,7 @@ env = gym.make("CarRacing-v3", render_mode="human", continuous=False)
 env = Observation_processing(env)
 
 agent = DQN(stacked_input=(4, 84, 84), num_actions=env.action_space.n)
-agent.network.load_state_dict(torch.load("DQN/checkpoints/checkpoint_ep1500.pth"))
+agent.network.load_state_dict(torch.load("DQN/checkpoints/checkpoint_ep1000.pth"))
 agent.network.eval()
 agent.epsilon = 0.0  
 

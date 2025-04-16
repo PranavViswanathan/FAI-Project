@@ -26,7 +26,4 @@ htmlcov/
 coverage.xml
 
 # PNG and pth and pkl files
-*.PNG
 *.pkl
-
-/DQN/plots

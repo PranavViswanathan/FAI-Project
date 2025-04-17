@@ -1,7 +1,7 @@
 Install: 
-
+```
 pip install -r /path/to/requirements.txt
-
+```
 THIS IS THE README FILE FROM Q LEARNING GITREPO:
 
 Q-Learning-Algorithm-in-Python-with-Cart-Pole-OpenAI-Gym--Gymnasium-Environment This GitHub repository contains the implementation of the Q-Learning (Reinforcement) learning algorithm in Python. The codes are tested in the Cart Pole OpenAI Gym (Gymnasium) environment. The tutorial webpage explaining the posted codes is given here:

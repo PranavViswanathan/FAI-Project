@@ -43,6 +43,42 @@ Our project entails taking a 2D car racing basic environment from Gymnasium and 
    sudo apt-get install ffmpeg xvfb
    ```
 
+
+## Project Structure
+```
+├── DQN
+│   ├── DeepQ.py
+│   ├── ImageProcessing.py
+│   ├── checkpoints
+│   │   ├── checkpoint_ep1000.pth
+│   │   ├── checkpoint_ep1500.pth
+│   │   └── checkpoint_ep500.pth
+│   ├── main.py
+│   ├── plots
+│   │   ├── dqn_carracing.pth
+│   │   ├── episode_rewards.png
+│   │   ├── epsilon_decay.png
+│   │   ├── training_metrics.pkl
+│   │   └── unique_states.png
+│   └── replay.py
+├── FAI final prez.pdf
+├── Prev_Codebase
+│   ├── main.py
+│   ├── q_learning.py
+│   ├── q_table.pkl
+│   └── test_policy.py
+├── Q_Learning
+│   ├── main.py
+│   ├── metrics.csv
+│   ├── qlearning.py
+│   ├── requirements.txt
+│   └── test_policy.py
+├── README.md
+├── requirements.txt
+└── resources
+    └── test.md
+
+```
 ## Training
 
 ### 1. Q-Learning

@@ -1,13 +1,66 @@
-Install: 
+# NeuroPilot - A RL based race car simulator
+
+Our project entails taking a 2D car racing basic environment from Gymnasium and investigating the performance of two RL algorithms; tabular Q-learning and DQN. The objective is to train autonomous agents capable of navigating tracks with varying complexities, by learning optimal driving, pathfinding and general policies through trial and error. We first implement Q-learning using discretized states spaces then extend to DQN using convolutional neural networks to handle high dimensional visual input. 
+
+## Features
+
+- **Gymnasium CarRacing-v3 Environment**  
+  A 2D continuous-control racing environment, now discretized and optimized for reinforcement learning.
+  
+- **Tabular Q-Learning Agent**  
+  Implements a classical Q-learning agent with state discretization and epsilon-greedy exploration.
+
+- **DQN Agent**  
+  Deep Q-Network that uses a CNN to process pixel observations, with experience replay and target network updates.
+
+- **Training Analytics**  
+  Plotting and logging of training reward, episode length, and exploration rate.
+
+- **Model Saving & Evaluation**  
+  Q-tables and DQN model checkpoints can be saved and reloaded for evaluation or continued training.
+
+##  Setup Instructions
+
+1. **Clone the repository**  
+   ```bash
+   git clone https://github.com/PranavViswanathan/FAI-Project.git
+   cd FAI-Project
+   ```
+
+2. **Create a virtual environment**
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+3. **Install dependencies**  
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **(Optional) Install extra packages for rendering**
+   ```bash
+   sudo apt-get install ffmpeg xvfb
+   ```
+
+## Training
+
+### 1. Q-Learning
+Run the Q-learning agent:
+```bash
+python Q_Learning/main.py
 ```
-pip install -r /path/to/requirements.txt
+
+Adjust hyperparameters such as learning rate (`alpha`), discount factor (`gamma`), or epsilon decay inside the script.
+
+### 2. DQN
+Run the DQN training:
+```bash
+python DQN/main.py
 ```
-THIS IS THE README FILE FROM Q LEARNING GITREPO:
+### 3. Visulaizing the results
+To visulize the model run the test policy file in each folder, for example:
+```
+python Q_Learning/test_policy.py
 
-Q-Learning-Algorithm-in-Python-with-Cart-Pole-OpenAI-Gym--Gymnasium-Environment This GitHub repository contains the implementation of the Q-Learning (Reinforcement) learning algorithm in Python. The codes are tested in the Cart Pole OpenAI Gym (Gymnasium) environment. The tutorial webpage explaining the posted codes is given here:
-
-https://aleksandarhaber.com/q-learning-in-python-with-tests-in-cart-pole-openai-gym-environment-reinforcement-learning-tutorial/
-
-Finalised Q-Learning and DQL models. We have our slides at: https://prezi.com/p/edit/fuouykm4zmyg/
-
-And we have 1 minute long kahoot with the following 3 questions: https://create.kahoot.it/details/fai-kahoot/b2db6233-2436-4ab2-99e5-058c53e6b25e What is the purpose of Epsilon in epsilon greedy strategy? Why is DQL better than Q-Learning for a car track? Who's Prof Raj's fav superhero?
+```

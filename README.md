@@ -60,7 +60,7 @@ python DQN/main.py
 ```
 ### 3. Visulaizing the results
 To visulize the model run the test policy file in each folder, for example:
-```
+```bash
 python Q_Learning/test_policy.py
 
 ```

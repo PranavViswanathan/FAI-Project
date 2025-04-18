@@ -14,7 +14,7 @@ Ultimately it falls short of creating a Q table that could be considered succesf
 
 
 import gymnasium as gym
-from qlearninf import QLearning
+from qlearning import QLearning
 import matplotlib.pyplot as plt
 import csv
 import os

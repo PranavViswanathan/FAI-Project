@@ -18,6 +18,19 @@ Our project entails taking a 2D car racing basic environment from Gymnasium and 
 
 - **Model Saving & Evaluation**  
   Q-tables and DQN model checkpoints can be saved and reloaded for evaluation or continued training.
+## Output
+
+### Results of Training
+
+<p align="center">
+  <img src="https://github.com/PranavViswanathan/FAI-Project/blob/main/resources/500%20GIF.gif" width="350" />
+  
+  <img src="https://github.com/PranavViswanathan/FAI-Project/blob/main/resources/1000.gif" width="350" />
+   
+  <img src="https://github.com/PranavViswanathan/FAI-Project/blob/main/resources/1500.gif" width="350" />
+  
+</p>
+
 
 ##  Setup Instructions
 
